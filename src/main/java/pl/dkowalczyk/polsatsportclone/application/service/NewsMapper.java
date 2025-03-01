@@ -2,7 +2,6 @@ package pl.dkowalczyk.polsatsportclone.application.service;
 
 import pl.dkowalczyk.polsatsportclone.application.dto.*;
 import pl.dkowalczyk.polsatsportclone.domain.model.News;
-import pl.dkowalczyk.polsatsportclone.domain.model.NewsQuote;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ public class NewsMapper {
 
         // Mapowanie galerii
         List<GalleryDTO> galleryDTOs = (news.getGallery() != null) ?
-                news.getGallery().stream().map(image -> new GalleryDTO(image.getThumbnail(), image.getFull(), image.getCaption())).toList() : null;
+                news.getGallery().stream().map(image -> new GalleryDTO(image.getThumbnail(), image.getFullImage(), image.getCaption())).toList() : null;
         // Mapowanie qutoes
         List<QuoteDTO> quoteDTO = (news.getQuotes() != null) ?
                 news.getQuotes().stream().map(quote -> new QuoteDTO( quote.getText(), quote.getAuthor(), quote.getPosition() )).toList(): null;

@@ -1,9 +1,7 @@
 package pl.dkowalczyk.polsatsportclone.infrastructure.adapter.api;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.dkowalczyk.polsatsportclone.application.dto.CategoryDTO;
 import pl.dkowalczyk.polsatsportclone.application.service.CategoryService;
 
@@ -26,5 +24,11 @@ public class CategoryController {
             return ResponseEntity.noContent().build();  // 204 No Content
         }
         return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDTO> addCategory(@RequestBody final CategoryDTO categoryDTO) {
+        CategoryDTO savedCategory = categoryService.createCategory(categoryDTO);
+        return ResponseEntity.ok(savedCategory);
     }
 }

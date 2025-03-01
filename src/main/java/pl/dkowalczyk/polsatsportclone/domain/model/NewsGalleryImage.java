@@ -3,6 +3,7 @@ package pl.dkowalczyk.polsatsportclone.domain.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "news_gallery_image")
 public class NewsGalleryImage {
 
     @Id
@@ -14,17 +15,17 @@ public class NewsGalleryImage {
     private News news;
 
     private String thumbnail;
-    private String full;
+    private String fullImage;
     private String caption;
 
     public NewsGalleryImage() {
     }
 
-    public NewsGalleryImage(Long id, News news, String thumbnail, String full, String caption) {
+    public NewsGalleryImage(Long id, News news, String thumbnail, String fullImage, String caption) {
         this.id = id;
         this.news = news;
         this.thumbnail = thumbnail;
-        this.full = full;
+        this.fullImage = fullImage;
         this.caption = caption;
     }
 
@@ -52,12 +53,12 @@ public class NewsGalleryImage {
         this.thumbnail = thumbnail;
     }
 
-    public String getFull() {
-        return full;
+    public String getFullImage() {
+        return fullImage;
     }
 
-    public void setFull(String full) {
-        this.full = full;
+    public void setFullImage(String fullImage) {
+        this.fullImage = fullImage;
     }
 
     public String getCaption() {

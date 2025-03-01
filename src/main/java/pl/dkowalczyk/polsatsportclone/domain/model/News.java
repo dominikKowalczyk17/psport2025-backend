@@ -1,6 +1,9 @@
 package pl.dkowalczyk.polsatsportclone.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
@@ -19,16 +22,22 @@ public class News {
     private Long id;
 
     @Column(nullable = false, length = 100, unique = true, updatable = true)
+    @NotBlank(message = "Tytuł jest wymagany")
     private String title;
 
     @Column(nullable = false, length = 100, unique = true, updatable = true)
-    @Pattern(regexp = "^[a-z0-9]+(?:-[a-z0-9]+)*$", message = "Slug must be in the format: example-slug-here")
+    @NotBlank(message = "Slug jest wymagany")
+    @Pattern(regexp = "^[a-z0-9]+(?:-[a-z0-9]+)*$", message = "Slug musi być w formacie: example-slug-here")
     private String slug;
 
+    @NotBlank(message = "Excerpt jest wymagany")
     private String excerpt;
+
+    @NotBlank(message = "Content jest wymagany")
     private String content;
 
     @Column(name = "publish_date")
+    @NotNull(message = "Data publikacji jest wymagana")
     private LocalDate publishDate;
 
     @Column(name = "modification_date")
@@ -36,10 +45,12 @@ public class News {
 
     @ManyToOne
     @JoinColumn(name = "author_id")
+    @NotNull(message = "Autor jest wymagany")
     private Author author;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull(message = "Kategoria jest wymagana")
     private Category category;
 
     @ManyToOne
@@ -47,9 +58,12 @@ public class News {
     private SubCategory subCategory;
 
     private String url;
-    private String imageUrl;
-    private String thumbnailUrl;
 
+    @NotBlank(message = "Obrazek jest wymagany")
+    private String imageUrl;
+
+    @NotBlank(message = "Miniaturka jest wymagana")
+    private String thumbnailUrl;
 
     @ManyToMany
     @JoinTable(
@@ -57,6 +71,7 @@ public class News {
             joinColumns = @JoinColumn(name = "news_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
+    @NotEmpty(message = "Tagi są wymagane")
     private List<Tag> tags;
 
     @Column(name = "is_hot")
@@ -71,6 +86,7 @@ public class News {
     @ElementCollection
     @CollectionTable(name = "news_quotes", joinColumns = @JoinColumn(name = "news_id"))
     private List<NewsQuote> quotes;
+
 
 
     public Long getId() {
